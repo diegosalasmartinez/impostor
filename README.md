@@ -119,9 +119,3 @@ src/
 └── styles/
     └── global.css      # Estilos globales con Tailwind
 ```
-
-## Categorias Disponibles
-
-El juego incluye 30 categorias con 20 palabras cada una, todas en español:
-
-Animales, Comida, Deportes, Peliculas, Paises, Profesiones, Instrumentos Musicales, Vehiculos, Cosas del Hogar, Ropa, Materias Escolares, Clima, Partes del Cuerpo, Frutas, Verduras, Colores, Bebidas, Festividades, Emociones, Superheroes, Videojuegos, Lugares Famosos, Criaturas Miticas, Herramientas, Postres, Objetos de Oficina, Generos Musicales, Lugares de la Ciudad, Electrodomesticos, Juguetes.

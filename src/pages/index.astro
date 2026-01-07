@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCategoryNames } from '../data/words';
+
+const categories = getCategoryNames();
 ---
 
 <Layout title="Impostor - El Juego de Palabras">
@@ -53,6 +56,51 @@ import Layout from '../layouts/Layout.astro';
         <p id="error-message" class="text-rose-400 text-xs sm:text-sm mt-3 text-center hidden"></p>
       </div>
 
+      <div class="mt-4 sm:mt-6 card">
+        <div class="flex items-center justify-between mb-3 sm:mb-4">
+          <h2 class="text-lg sm:text-xl font-semibold flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            Categorias
+          </h2>
+          <button id="toggle-categories" class="text-white/60 hover:text-white transition-colors p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform" id="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+
+        <p class="text-white/60 text-xs sm:text-sm mb-3" id="categories-hint">
+          <span id="selected-count">{categories.length}</span> de {categories.length} categorias seleccionadas
+        </p>
+
+        <div id="categories-container" class="hidden">
+          <div class="flex gap-2 mb-3">
+            <button id="select-all" class="text-xs px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+              Todas
+            </button>
+            <button id="select-none" class="text-xs px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 transition-colors">
+              Ninguna
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto pr-1">
+            {categories.map((category) => (
+              <label class="flex items-center gap-2 p-2 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors">
+                <input
+                  type="checkbox"
+                  class="category-checkbox w-4 h-4 rounded border-white/30 bg-white/10 text-teal-500 focus:ring-teal-500 focus:ring-offset-0"
+                  value={category}
+                  checked
+                />
+                <span class="text-xs sm:text-sm truncate">{category}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div class="mt-6 sm:mt-8 card bg-white/3">
         <h3 class="font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +130,16 @@ import Layout from '../layouts/Layout.astro';
   const startGameBtn = document.getElementById('start-game') as HTMLButtonElement;
   const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
 
+  const toggleCategoriesBtn = document.getElementById('toggle-categories') as HTMLButtonElement;
+  const toggleIcon = document.getElementById('toggle-icon') as SVGElement;
+  const categoriesContainer = document.getElementById('categories-container') as HTMLDivElement;
+  const selectAllBtn = document.getElementById('select-all') as HTMLButtonElement;
+  const selectNoneBtn = document.getElementById('select-none') as HTMLButtonElement;
+  const selectedCountSpan = document.getElementById('selected-count') as HTMLSpanElement;
+  const categoryCheckboxes = document.querySelectorAll('.category-checkbox') as NodeListOf<HTMLInputElement>;
+
   let players: string[] = [];
+  let categoriesExpanded = false;
 
   function showError(message: string) {
     errorMessage.textContent = message;
@@ -90,6 +147,17 @@ import Layout from '../layouts/Layout.astro';
     setTimeout(() => {
       errorMessage.classList.add('hidden');
     }, 3000);
+  }
+
+  function getSelectedCategories(): string[] {
+    return Array.from(categoryCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+  }
+
+  function updateSelectedCount() {
+    const count = getSelectedCategories().length;
+    selectedCountSpan.textContent = count.toString();
   }
 
   function updatePlayersList() {
@@ -147,6 +215,26 @@ import Layout from '../layouts/Layout.astro';
     updatePlayersList();
   }
 
+  toggleCategoriesBtn.addEventListener('click', () => {
+    categoriesExpanded = !categoriesExpanded;
+    categoriesContainer.classList.toggle('hidden', !categoriesExpanded);
+    toggleIcon.style.transform = categoriesExpanded ? 'rotate(180deg)' : '';
+  });
+
+  selectAllBtn.addEventListener('click', () => {
+    categoryCheckboxes.forEach(cb => cb.checked = true);
+    updateSelectedCount();
+  });
+
+  selectNoneBtn.addEventListener('click', () => {
+    categoryCheckboxes.forEach(cb => cb.checked = false);
+    updateSelectedCount();
+  });
+
+  categoryCheckboxes.forEach(cb => {
+    cb.addEventListener('change', updateSelectedCount);
+  });
+
   addPlayerBtn.addEventListener('click', addPlayer);
 
   playerNameInput.addEventListener('keypress', (e) => {
@@ -161,8 +249,14 @@ import Layout from '../layouts/Layout.astro';
       return;
     }
 
+    const selectedCategories = getSelectedCategories();
+    if (selectedCategories.length === 0) {
+      showError('Selecciona al menos una categoria');
+      return;
+    }
+
     clearGameState();
-    createGame(players);
+    createGame(players, selectedCategories);
     window.location.href = '/game';
   });
 

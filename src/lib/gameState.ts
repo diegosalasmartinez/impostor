@@ -24,12 +24,13 @@ export interface GameState {
   phase: 'setup' | 'reveal' | 'discussion' | 'voting' | 'results';
   ejectedPlayerId: string | null;
   round: number;
+  selectedCategories: string[];
 }
 
 const GAME_STATE_KEY = 'impostor_game_state';
 
-export function createGame(playerNames: string[]): GameState {
-  const category = getRandomCategory();
+export function createGame(playerNames: string[], selectedCategories: string[] = []): GameState {
+  const category = getRandomCategory(selectedCategories);
   const word = getRandomWord(category);
   const impostorIndex = Math.floor(Math.random() * playerNames.length);
 
@@ -57,6 +58,7 @@ export function createGame(playerNames: string[]): GameState {
     phase: 'reveal',
     ejectedPlayerId: null,
     round: 1,
+    selectedCategories,
   };
 
   saveGameState(gameState);
@@ -64,7 +66,7 @@ export function createGame(playerNames: string[]): GameState {
 }
 
 export function startNewRound(state: GameState): GameState {
-  const category = getRandomCategory();
+  const category = getRandomCategory(state.selectedCategories);
   const word = getRandomWord(category);
   const impostorIndex = Math.floor(Math.random() * state.playerScores.length);
 

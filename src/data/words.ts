@@ -1,137 +1,191 @@
 export interface WordCategory {
-  category: string;
-  words: string[];
+    category: string;
+    words: string[];
 }
 
+
 export const wordCategories: WordCategory[] = [
-  {
-    category: "Animales",
-    words: ["Perro", "Gato", "Elefante", "Leon", "Tigre", "Oso", "Lobo", "Zorro", "Conejo", "Caballo", "Vaca", "Cerdo", "Oveja", "Cabra", "Gallina", "Pato", "Aguila", "Buho", "Loro", "Pinguino"]
-  },
-  {
-    category: "Comida",
-    words: ["Pizza", "Hamburguesa", "Sushi", "Pasta", "Tacos", "Ensalada", "Bistec", "Sopa", "Sandwich", "Arroz", "Pan", "Queso", "Pollo", "Pescado", "Huevos", "Panqueques", "Helado", "Chocolate", "Manzana", "Platano"]
-  },
-  {
-    category: "Deportes",
-    words: ["Futbol", "Basquetbol", "Tenis", "Golf", "Natacion", "Correr", "Ciclismo", "Boxeo", "Lucha", "Beisbol", "Hockey", "Voleibol", "Rugby", "Cricket", "Esqui", "Surf", "Patineta", "Gimnasia", "Arqueria", "Esgrima"]
-  },
-  {
-    category: "Peliculas",
-    words: ["Titanic", "Avatar", "El Origen", "Matrix", "Gladiador", "Tiburon", "Rocky", "Aliens", "Terminator", "Jurassic Park", "Star Wars", "El Senor de los Anillos", "Harry Potter", "Frozen", "Shrek", "Buscando a Nemo", "El Padrino", "Pulp Fiction", "Forrest Gump", "El Club de la Pelea"]
-  },
-  {
-    category: "Paises",
-    words: ["Estados Unidos", "Canada", "Mexico", "Brasil", "Argentina", "Reino Unido", "Francia", "Alemania", "Italia", "Espana", "Japon", "China", "India", "Australia", "Egipto", "Sudafrica", "Rusia", "Suecia", "Grecia", "Tailandia"]
-  },
-  {
-    category: "Profesiones",
-    words: ["Doctor", "Maestro", "Ingeniero", "Chef", "Piloto", "Enfermera", "Abogado", "Contador", "Arquitecto", "Bombero", "Policia", "Cientifico", "Artista", "Musico", "Escritor", "Fotografo", "Dentista", "Veterinario", "Mecanico", "Electricista"]
-  },
-  {
-    category: "Instrumentos Musicales",
-    words: ["Piano", "Guitarra", "Violin", "Bateria", "Flauta", "Saxofon", "Trompeta", "Chelo", "Arpa", "Clarinete", "Trombon", "Acordeon", "Banjo", "Ukulele", "Armonica", "Xilofono", "Bajo", "Oboe", "Gaita", "Organo"]
-  },
-  {
-    category: "Vehiculos",
-    words: ["Carro", "Autobus", "Tren", "Avion", "Helicoptero", "Barco", "Motocicleta", "Bicicleta", "Camion", "Camioneta", "Submarino", "Cohete", "Tranvia", "Taxi", "Ambulancia", "Carro de Bomberos", "Scooter", "Yate", "Canoa", "Globo Aerostatico"]
-  },
-  {
-    category: "Cosas del Hogar",
-    words: ["Silla", "Mesa", "Sofa", "Cama", "Lampara", "Espejo", "Reloj", "Television", "Refrigerador", "Microondas", "Horno", "Tostadora", "Licuadora", "Aspiradora", "Lavadora", "Librero", "Cortinas", "Alfombra", "Almohada", "Cobija"]
-  },
-  {
-    category: "Ropa",
-    words: ["Camisa", "Pantalones", "Vestido", "Falda", "Chaqueta", "Abrigo", "Sueter", "Jeans", "Shorts", "Calcetines", "Zapatos", "Botas", "Sandalias", "Sombrero", "Bufanda", "Guantes", "Corbata", "Cinturon", "Reloj", "Lentes de Sol"]
-  },
-  {
-    category: "Materias Escolares",
-    words: ["Matematicas", "Ciencias", "Historia", "Geografia", "Espanol", "Arte", "Musica", "Educacion Fisica", "Biologia", "Quimica", "Fisica", "Literatura", "Filosofia", "Psicologia", "Economia", "Computacion", "Idiomas", "Teatro", "Fotografia", "Astronomia"]
-  },
-  {
-    category: "Clima",
-    words: ["Soleado", "Lluvioso", "Nublado", "Ventoso", "Nevado", "Tormentoso", "Neblinoso", "Humedo", "Seco", "Caliente", "Frio", "Helado", "Trueno", "Relampago", "Granizo", "Tornado", "Huracan", "Arcoiris", "Escarcha", "Ventisca"]
-  },
-  {
-    category: "Partes del Cuerpo",
-    words: ["Cabeza", "Mano", "Pie", "Brazo", "Pierna", "Ojo", "Oreja", "Nariz", "Boca", "Cuello", "Hombro", "Codo", "Rodilla", "Dedo", "Dedo del Pie", "Espalda", "Pecho", "Estomago", "Corazon", "Cerebro"]
-  },
-  {
-    category: "Frutas",
-    words: ["Manzana", "Platano", "Naranja", "Fresa", "Uva", "Sandia", "Mango", "Pina", "Durazno", "Pera", "Cereza", "Limon", "Lima", "Coco", "Kiwi", "Papaya", "Mora Azul", "Frambuesa", "Aguacate", "Granada"]
-  },
-  {
-    category: "Verduras",
-    words: ["Zanahoria", "Brocoli", "Espinaca", "Tomate", "Papa", "Cebolla", "Ajo", "Pimiento", "Pepino", "Lechuga", "Maiz", "Chicharos", "Frijoles", "Apio", "Coliflor", "Berenjena", "Calabacin", "Champiñon", "Esparragos", "Col"]
-  },
-  {
-    category: "Colores",
-    words: ["Rojo", "Azul", "Verde", "Amarillo", "Naranja", "Morado", "Rosa", "Cafe", "Negro", "Blanco", "Gris", "Dorado", "Plateado", "Turquesa", "Guinda", "Azul Marino", "Verde Azulado", "Coral", "Magenta", "Beige"]
-  },
-  {
-    category: "Bebidas",
-    words: ["Agua", "Cafe", "Te", "Jugo", "Refresco", "Leche", "Cerveza", "Vino", "Coctel", "Licuado", "Limonada", "Chocolate Caliente", "Malteada", "Bebida Energetica", "Te Helado", "Espresso", "Capuchino", "Mojito", "Margarita", "Champana"]
-  },
-  {
-    category: "Festividades",
-    words: ["Navidad", "Halloween", "Pascua", "Dia de Gracias", "Ano Nuevo", "San Valentin", "Dia de la Independencia", "Dia de las Madres", "Dia del Padre", "Dia del Trabajo", "Dia de Muertos", "San Patricio", "Januca", "Diwali", "Ano Nuevo Chino", "Carnaval", "Cinco de Mayo", "Dia del Nino", "Cumpleanos", "Aniversario"]
-  },
-  {
-    category: "Emociones",
-    words: ["Feliz", "Triste", "Enojado", "Asustado", "Sorprendido", "Emocionado", "Nervioso", "Confundido", "Orgulloso", "Celoso", "Agradecido", "Esperanzado", "Ansioso", "Aburrido", "Solitario", "Avergonzado", "Frustrado", "Contento", "Asombrado", "Decepcionado"]
-  },
-  {
-    category: "Superheroes",
-    words: ["Hombre Arana", "Batman", "Superman", "Mujer Maravilla", "Iron Man", "Capitan America", "Thor", "Hulk", "Pantera Negra", "Aquaman", "Flash", "Linterna Verde", "Wolverine", "Deadpool", "Viuda Negra", "Ojo de Halcon", "Ant-Man", "Doctor Strange", "Bruja Escarlata", "Vision"]
-  },
-  {
-    category: "Videojuegos",
-    words: ["Minecraft", "Fortnite", "Call of Duty", "GTA", "FIFA", "Mario", "Zelda", "Pokemon", "Tetris", "Pac-Man", "Sonic", "Halo", "God of War", "Resident Evil", "Final Fantasy", "Mortal Kombat", "Street Fighter", "Overwatch", "League of Legends", "Among Us"]
-  },
-  {
-    category: "Lugares Famosos",
-    words: ["Torre Eiffel", "Estatua de la Libertad", "Big Ben", "Coliseo", "Gran Muralla China", "Taj Mahal", "Piramides", "Machu Picchu", "Cristo Redentor", "Opera de Sydney", "Stonehenge", "Torre de Pisa", "Monte Rushmore", "Puente Golden Gate", "Acropolis", "Burj Khalifa", "Empire State", "Cataratas del Niagara", "Gran Canon", "Gran Barrera de Coral"]
-  },
-  {
-    category: "Criaturas Miticas",
-    words: ["Dragon", "Unicornio", "Fenix", "Sirena", "Hombre Lobo", "Vampiro", "Zombie", "Gigante", "Elfo", "Enano", "Trol", "Hada", "Grifo", "Centauro", "Minotauro", "Pegaso", "Kraken", "Ciclope", "Esfinge", "Yeti"]
-  },
-  {
-    category: "Herramientas",
-    words: ["Martillo", "Destornillador", "Llave Inglesa", "Pinzas", "Sierra", "Taladro", "Cinta Metrica", "Nivel", "Cincel", "Lima", "Lija", "Prensa", "Tornillo de Banco", "Escalera", "Carretilla", "Pala", "Rastrillo", "Hacha", "Palanca", "Tijeras"]
-  },
-  {
-    category: "Postres",
-    words: ["Pastel", "Pay", "Galleta", "Brownie", "Cupcake", "Dona", "Helado", "Cheesecake", "Pudin", "Mousse", "Tiramisu", "Macaron", "Eclair", "Creme Brulee", "Churros", "Waffle", "Crepa", "Tarta", "Flan", "Gelato"]
-  },
-  {
-    category: "Objetos de Oficina",
-    words: ["Computadora", "Teclado", "Raton", "Monitor", "Impresora", "Escritorio", "Silla de Oficina", "Lapiz", "Pluma", "Grapadora", "Clips", "Post-it", "Carpeta", "Archivero", "Telefono", "Calculadora", "Regla", "Borrador", "Sacapuntas", "Cinta Adhesiva"]
-  },
-  {
-    category: "Generos Musicales",
-    words: ["Rock", "Pop", "Jazz", "Clasica", "Hip Hop", "Reggaeton", "Salsa", "Cumbia", "Banda", "Ranchera", "Electronica", "Metal", "Country", "Blues", "R&B", "Funk", "Reggae", "Bachata", "Merengue", "Corridos"]
-  },
-  {
-    category: "Lugares de la Ciudad",
-    words: ["Hospital", "Escuela", "Banco", "Supermercado", "Restaurante", "Parque", "Cine", "Teatro", "Museo", "Biblioteca", "Gimnasio", "Estacion de Tren", "Aeropuerto", "Hotel", "Gasolinera", "Farmacia", "Panaderia", "Carniceria", "Iglesia", "Plaza"]
-  },
-  {
-    category: "Electrodomesticos",
-    words: ["Refrigerador", "Lavadora", "Secadora", "Lavavajillas", "Microondas", "Horno", "Estufa", "Cafetera", "Licuadora", "Tostadora", "Plancha", "Aspiradora", "Ventilador", "Aire Acondicionado", "Calentador", "Exprimidor", "Batidora", "Freidora de Aire", "Robot de Cocina", "Purificador de Agua"]
-  },
-  {
-    category: "Juguetes",
-    words: ["Muneca", "Carro de Juguete", "Peluche", "Lego", "Rompecabezas", "Pelota", "Patineta", "Bicicleta", "Videojuego", "Trompo", "Yoyo", "Canicas", "Avion de Juguete", "Tren de Juguete", "Robot", "Figura de Accion", "Casa de Munecas", "Plastilina", "Crayones", "Juego de Mesa"]
-  }
+    {
+        category: "Objetos cotidianos",
+        words: [
+            "Celular", "Llaves", "Mochila", "Sillón", "Reloj", "Zapatillas", "Botella", "Auriculares", "Cuaderno", "Libro",
+            "Laptop", "Tablet", "Televisor", "Control remoto", "Cargador", "Cartera", "Billetera", "Lentes", "Paraguas", "Toalla",
+            "Cepillo", "Peine", "Almohada", "Manta", "Lámpara", "Ventilador", "Espejo", "Mesa", "Silla", "Cama",
+            "Basurero", "Escoba", "Trapeador", "Caja", "Bolso", "Agenda", "Lápiz", "Lapicero", "Regla", "Calculadora",
+            "Termo", "Mochila escolar", "Ropa", "Chaqueta", "Gorra", "Sombrero", "Zapatos", "Sandalias", "Maleta"
+        ]
+    },
+    {
+        category: "Lugares",
+        words: [
+            "Parque", "Supermercado", "Cine", "Oficina", "Playa", "Hospital", "Escuela", "Restaurante",
+            "Biblioteca", "Gimnasio", "Banco", "Aeropuerto", "Terminal", "Estadio", "Teatro", "Museo", "Iglesia", "Mercado",
+            "Farmacia", "Panadería", "Hotel", "Hostal", "Piscina", "Plaza", "Calle", "Avenida", "Puente", "Montaña",
+            "Bosque", "Río", "Lago", "Desierto", "Isla", "Puerto", "Centro comercial", "Universidad", "Laboratorio",
+            "Consultorio", "Comisaría", "Estación de policía", "Estación de bomberos", "Zoológico", "Acuario",
+            "Parque de diversiones", "Discoteca", "Bar", "Cafetería", "Oficina pública"
+        ]
+    },
+    {
+        category: "Profesiones y roles",
+        words: [
+            "Doctor", "Policía", "Chef", "Bombero", "Maestro", "Astronauta", "Pintor", "Escritor",
+            "Ingeniero", "Arquitecto", "Abogado", "Enfermero", "Dentista", "Veterinario", "Mecánico", "Electricista",
+            "Carpintero", "Panadero", "Pastelero", "Cajero", "Vendedor", "Gerente", "Administrador", "Contador",
+            "Periodista", "Reportero", "Fotógrafo", "Camarógrafo", "Actor", "Actriz", "Cantante", "Músico",
+            "Director", "Productor", "Editor", "Diseñador", "Programador", "Desarrollador", "Analista", "Tester",
+            "Guardia", "Seguridad", "Conductor", "Chofer", "Piloto", "Capitán", "Marinero", "Soldado"
+        ]
+    },
+    {
+        category: "Comida y bebidas",
+        words: [
+            "Pizza", "Sushi", "Ensalada", "Café", "Helado", "Agua", "Fruta", "Chocolate",
+            "Hamburguesa", "Papas fritas", "Hot dog", "Sandwich", "Tacos", "Burritos", "Empanada", "Ceviche",
+            "Arroz", "Fideos", "Lasaña", "Sopa", "Caldo", "Pollo frito", "Carne asada", "Pescado",
+            "Torta", "Pastel", "Flan", "Gelatina", "Galletas", "Brownies", "Cupcake", "Donas",
+            "Yogur", "Leche", "Jugo", "Refresco", "Gaseosa", "Té", "Cerveza", "Vino",
+            "Batido", "Smoothie", "Pan", "Pan integral", "Pan dulce", "Croissant", "Queso", "Mantequilla"
+        ]
+    },
+    {
+        category: "Animales",
+        words: [
+            "Perro", "Gato", "Leon", "Elefante", "Pajaro", "Pez", "Serpiente",
+            "Tigre", "Oso", "Lobo", "Zorro", "Mono", "Gorila", "Chimpance", "Jirafa", "Cebra",
+            "Rinoceronte", "Hipopotamo", "Camello", "Caballo", "Burro", "Vaca", "Toro", "Cerdo",
+            "Oveja", "Cabra", "Gallina", "Gallo", "Pato", "Aguila", "Buho", "Loro",
+            "Delfin", "Ballena", "Tiburon", "Pulpo", "Medusa", "Cangrejo", "Langosta", "Tortuga",
+            "Cocodrilo", "Lagarto", "Iguana", "Rana", "Sapo", "Mariposa", "Abeja", "Hormiga"
+        ]
+    },
+    {
+        category: "Acciones",
+        words: [
+            "Correr", "Saltar", "Hablar", "Comer", "Dormir", "Leer", "Escribir", "Cantar",
+            "Bailar", "Caminar", "Nadar", "Conducir", "Viajar", "Escuchar", "Mirar", "Observar",
+            "Pensar", "Buscar", "Encontrar", "Perder", "Comprar", "Vender", "Pagar", "Cobrar",
+            "Abrir", "Cerrar", "Entrar", "Salir", "Subir", "Bajar", "Empujar", "Jalar",
+            "Construir", "Romper", "Arreglar", "Limpiar", "Cocinar", "Servir", "Cortar", "Mezclar",
+            "Lavar", "Secar", "Planchar", "Doblar", "Ordenar", "Desordenar"
+        ]
+    },
+    {
+        category: "Sentimientos y emociones",
+        words: [
+            "Alegria", "Tristeza", "Miedo", "Sorpresa", "Amor", "Enojo",
+            "Felicidad", "Nervios", "Verguenza", "Orgullo", "Celos", "Culpa",
+            "Ansiedad", "Calma", "Confianza", "Esperanza", "Frustracion", "Aburrimiento",
+            "Ternura", "Satisfaccion", "Soledad", "Euforia", "Panico", "Ilusion"
+        ]
+    },
+    {
+        category: "Videojuegos",
+        words: [
+            "Minecraft", "Fortnite", "GTA", "FIFA", "Call of Duty", "Among Us", "Zelda", "Mario Bros",
+            "Pokemon", "League of Legends", "Valorant", "Counter Strike", "Dota", "Roblox", "Clash Royale",
+            "Clash of Clans", "Free Fire", "PUBG", "The Sims", "Need for Speed", "God of War",
+            "Red Dead Redemption", "Assassins Creed", "Resident Evil", "Silent Hill", "Metal Gear",
+            "Mortal Kombat", "Street Fighter", "Tekken", "Final Fantasy", "Skyrim", "Fall Guys",
+            "Overwatch", "Apex Legends", "Rocket League", "Plants vs Zombies", "Candy Crush",
+            "Angry Birds", "Subway Surfers", "Temple Run", "Cyberpunk", "Elden Ring", "Dark Souls"
+        ]
+    },
+    {
+        category: "Peliculas",
+        words: [
+            "Titanic", "Avatar", "Matrix", "Jurassic Park", "Harry Potter", "El Padrino", "Toy Story", "Star Wars",
+            "Gladiador", "Rocky", "Inception", "Interstellar", "Batman", "Spiderman", "Avengers", "Iron Man",
+            "Thor", "Capitan America", "Joker", "Deadpool", "Shrek", "Madagascar", "Kung Fu Panda",
+            "Frozen", "Coco", "Up", "Wall E", "Cars", "Buscando a Nemo", "Ratatouille",
+            "Piratas del Caribe", "El Hobbit", "El Señor de los Anillos", "Transformers", "Terminator",
+            "Alien", "Depredador", "Rambo", "Volver al Futuro", "Indiana Jones", "Matrix Reloaded"
+        ]
+    },
+    {
+        category: "Series",
+        words: [
+            "Breaking Bad", "Game of Thrones", "Stranger Things", "La Casa de Papel", "Friends", "The Simpsons",
+            "The Walking Dead", "Naruto", "Dragon Ball", "One Piece", "Attack on Titan", "Death Note",
+            "The Office", "How I Met Your Mother", "Modern Family", "The Big Bang Theory",
+            "Vikings", "Peaky Blinders", "Dark", "Black Mirror", "Better Call Saul", "Dexter",
+            "Lost", "Prison Break", "House", "Grey's Anatomy", "Suits", "Sherlock", "Wednesday",
+            "The Boys", "Arcane", "Chernobyl", "Money Heist Korea", "Loki", "WandaVision"
+        ]
+    },
+    {
+        category: "Celebridades y actores",
+        words: [
+            "Leonardo DiCaprio", "Brad Pitt", "Angelina Jolie", "Tom Cruise", "Johnny Depp",
+            "Will Smith", "Robert Downey Jr", "Dwayne Johnson", "Scarlett Johansson",
+            "Chris Evans", "Chris Hemsworth", "Emma Watson", "Daniel Radcliffe",
+            "Jennifer Lawrence", "Keanu Reeves", "Morgan Freeman", "Matt Damon",
+            "Natalie Portman", "Gal Gadot", "Ryan Reynolds", "Hugh Jackman",
+            "Zendaya", "Timothee Chalamet", "Margot Robbie", "Tom Holland",
+            "Beyonce", "Taylor Swift", "Shakira", "Bad Bunny", "Rihanna"
+        ]
+    },
+    {
+        category: "Paises",
+        words: [
+            "Peru", "Mexico", "Argentina", "Brasil", "Chile", "Colombia", "Ecuador", "Bolivia",
+            "Estados Unidos", "Canada", "España", "Francia", "Italia", "Alemania", "Portugal",
+            "Inglaterra", "Irlanda", "Escocia", "Japon", "China", "Corea del Sur", "India",
+            "Australia", "Nueva Zelanda", "Rusia", "Ucrania", "Egipto", "Marruecos", "Sudafrica",
+            "Nigeria", "Kenya", "Turquia", "Grecia", "Suecia", "Noruega", "Finlandia", "Dinamarca",
+            "Holanda", "Belgica", "Suiza", "Austria", "Polonia", "Republica Checa", "Hungria"
+        ]
+    },
+    {
+        category: "Marcas y empresas",
+        words: [
+            "Apple", "Google", "Microsoft", "Amazon", "Meta", "Facebook", "Instagram", "WhatsApp",
+            "Nike", "Adidas", "Puma", "Reebok", "Coca Cola", "Pepsi", "McDonalds", "Burger King",
+            "KFC", "Subway", "Starbucks", "Nestle", "Samsung", "Sony", "LG", "Huawei",
+            "Xiaomi", "Intel", "AMD", "Nvidia", "PlayStation", "Xbox", "Nintendo",
+            "Netflix", "Disney", "HBO", "Spotify", "Uber", "Airbnb", "Tesla", "Toyota",
+            "Honda", "Ford", "Chevrolet", "BMW", "Mercedes", "Audi"
+        ]
+    },
+    {
+        category: "Historia",
+        words: [
+            "Dinosaurios", "Egipto antiguo", "Imperio romano", "Imperio griego", "Edad media",
+            "Renacimiento", "Revolucion francesa", "Revolucion industrial",
+            "Primera guerra mundial", "Segunda guerra mundial", "Guerra fria",
+            "Descubrimiento de America", "Colonizacion", "Independencia",
+            "Imperio inca", "Civilizacion maya", "Civilizacion azteca",
+            "Piratas", "Vikingos", "Caballeros", "Castillos", "Faraones",
+            "Gladiadores", "Samurais", "Conquistadores", "Exploradores",
+            "Reyes", "Reinas", "Emperadores", "Presidentes", "Dictaduras",
+            "Democracia", "Monarquia", "Feudalismo", "Esclavitud", "Abolicion",
+            "Imperios", "Batallas", "Tratados", "Revoluciones"
+        ]
+    }
 ];
 
-export function getRandomCategory(): WordCategory {
-  const randomIndex = Math.floor(Math.random() * wordCategories.length);
-  return wordCategories[randomIndex];
+export function getCategoryNames(): string[] {
+    return wordCategories.map(c => c.category);
+}
+
+export function getRandomCategory(selectedCategories?: string[]): WordCategory {
+    let availableCategories = wordCategories;
+
+    if (selectedCategories && selectedCategories.length > 0) {
+        availableCategories = wordCategories.filter(c =>
+            selectedCategories.includes(c.category)
+        );
+    }
+
+    if (availableCategories.length === 0) {
+        availableCategories = wordCategories;
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableCategories.length);
+    return availableCategories[randomIndex];
 }
 
 export function getRandomWord(category: WordCategory): string {
-  const randomIndex = Math.floor(Math.random() * category.words.length);
-  return category.words[randomIndex];
+    const randomIndex = Math.floor(Math.random() * category.words.length);
+    return category.words[randomIndex];
 }
