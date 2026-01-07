@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Impostor - El Juego de Palabras">
+  <div class="flex-1 flex items-center justify-center px-4 py-6 sm:py-8">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-6 sm:mb-8">
+        <div class="inline-block mb-4 animate-float">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl shadow-teal-500/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+          IMPOSTOR
+        </h1>
+        <p class="text-white/60 text-base sm:text-lg">
+          Encuentra al impostor entre tus amigos
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center">Agregar Jugadores</h2>
+        <p class="text-white/60 text-xs sm:text-sm mb-4 sm:mb-6 text-center">
+          Necesitas al menos 3 jugadores para comenzar
+        </p>
+
+        <div id="players-list" class="space-y-2 sm:space-y-3 mb-4 sm:mb-6 max-h-48 overflow-y-auto">
+          <!-- Players will be added here dynamically -->
+        </div>
+
+        <div class="flex gap-2 mb-4 sm:mb-6">
+          <input
+            type="text"
+            id="player-name"
+            class="input flex-1 text-sm sm:text-base"
+            placeholder="Nombre del jugador"
+            maxlength="20"
+          />
+          <button id="add-player" class="btn btn-secondary whitespace-nowrap px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </div>
+
+        <button id="start-game" class="btn btn-primary w-full text-sm sm:text-base" disabled>
+          Iniciar Juego
+        </button>
+
+        <p id="error-message" class="text-rose-400 text-xs sm:text-sm mt-3 text-center hidden"></p>
+      </div>
+
+      <div class="mt-6 sm:mt-8 card bg-white/3">
+        <h3 class="font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Como jugar
+        </h3>
+        <ol class="text-white/60 text-xs sm:text-sm space-y-1.5 sm:space-y-2 list-decimal list-inside">
+          <li>Todos reciben la misma palabra, excepto <strong class="text-teal-400">el impostor</strong></li>
+          <li>El impostor solo conoce la categoria</li>
+          <li>Por turnos, cada jugador dice una palabra relacionada</li>
+          <li>Discutan y decidan a quien expulsar</li>
+          <li>Si expulsan al impostor, <strong class="text-emerald-400">ganan los jugadores</strong></li>
+          <li>Si expulsan a otro, <strong class="text-rose-400">gana el impostor</strong></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { createGame, clearGameState } from '../lib/gameState';
+
+  const playersList = document.getElementById('players-list') as HTMLDivElement;
+  const playerNameInput = document.getElementById('player-name') as HTMLInputElement;
+  const addPlayerBtn = document.getElementById('add-player') as HTMLButtonElement;
+  const startGameBtn = document.getElementById('start-game') as HTMLButtonElement;
+  const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
+
+  let players: string[] = [];
+
+  function showError(message: string) {
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('hidden');
+    setTimeout(() => {
+      errorMessage.classList.add('hidden');
+    }, 3000);
+  }
+
+  function updatePlayersList() {
+    playersList.innerHTML = players.map((name, index) => `
+      <div class="flex items-center justify-between bg-white/5 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 group">
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-xs sm:text-sm font-semibold">
+            ${index + 1}
+          </div>
+          <span class="font-medium text-sm sm:text-base">${name}</span>
+        </div>
+        <button
+          class="text-white/40 hover:text-rose-400 transition-colors p-1"
+          data-remove="${index}"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    `).join('');
+
+    playersList.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt((btn as HTMLElement).dataset.remove || '0');
+        players.splice(index, 1);
+        updatePlayersList();
+      });
+    });
+
+    startGameBtn.disabled = players.length < 3;
+  }
+
+  function addPlayer() {
+    const name = playerNameInput.value.trim();
+
+    if (!name) {
+      showError('Por favor ingresa un nombre');
+      return;
+    }
+
+    if (players.length >= 10) {
+      showError('Maximo 10 jugadores');
+      return;
+    }
+
+    if (players.some(p => p.toLowerCase() === name.toLowerCase())) {
+      showError('Este nombre ya existe');
+      return;
+    }
+
+    players.push(name);
+    playerNameInput.value = '';
+    playerNameInput.focus();
+    updatePlayersList();
+  }
+
+  addPlayerBtn.addEventListener('click', addPlayer);
+
+  playerNameInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      addPlayer();
+    }
+  });
+
+  startGameBtn.addEventListener('click', () => {
+    if (players.length < 3) {
+      showError('Necesitas al menos 3 jugadores');
+      return;
+    }
+
+    clearGameState();
+    createGame(players);
+    window.location.href = '/game';
+  });
+
+  updatePlayersList();
+</script>

@@ -1,0 +1,540 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Impostor - Jugando">
+  <div class="flex-1 flex items-center justify-center px-4 py-6 sm:py-8">
+    <div class="w-full max-w-lg">
+      <!-- No Game State -->
+      <div id="no-game" class="text-center hidden">
+        <div class="card">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-rose-500/20 rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 class="text-lg sm:text-xl font-semibold mb-2">No hay juego activo</h2>
+          <p class="text-white/60 text-sm mb-6">Necesitas iniciar un nuevo juego desde la pagina principal</p>
+          <a href="/" class="btn btn-primary inline-block text-sm sm:text-base">Ir al Inicio</a>
+        </div>
+      </div>
+
+      <!-- Reveal Phase -->
+      <div id="reveal-phase" class="hidden">
+        <div class="text-center mb-4 sm:mb-6">
+          <p id="round-badge-reveal" class="inline-block px-3 py-1 bg-teal-500/20 border border-teal-500/30 rounded-full text-teal-400 text-xs sm:text-sm font-semibold mb-3"></p>
+          <h2 class="text-xl sm:text-2xl font-bold mb-2">Turno de ver la palabra</h2>
+          <p class="text-white/60 text-sm sm:text-base">Pasa el dispositivo al siguiente jugador</p>
+        </div>
+
+        <!-- Waiting for player -->
+        <div id="reveal-waiting" class="card text-center">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg shadow-teal-500/30">
+            <span id="reveal-player-initial" class="text-2xl sm:text-3xl font-bold"></span>
+          </div>
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">Turno de <span id="reveal-player-name" class="text-teal-400"></span></h3>
+          <p class="text-white/60 text-xs sm:text-sm mb-6">Solo esta persona debe ver la pantalla</p>
+          <button id="reveal-show-btn" class="btn btn-primary w-full text-sm sm:text-base">
+            Ver mi palabra
+          </button>
+        </div>
+
+        <!-- Showing word -->
+        <div id="reveal-showing" class="card text-center hidden">
+          <div id="reveal-impostor-badge" class="hidden mb-4">
+            <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-rose-500/20 border border-rose-500/30 rounded-full text-rose-400 text-xs sm:text-sm font-semibold animate-pulse">
+              ERES EL IMPOSTOR
+            </span>
+          </div>
+          <div id="reveal-player-badge" class="hidden mb-4">
+            <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-xs sm:text-sm font-semibold">
+              JUGADOR
+            </span>
+          </div>
+
+          <div class="mb-4">
+            <p class="text-white/60 text-xs sm:text-sm mb-1">Categoria</p>
+            <p id="reveal-category" class="text-base sm:text-lg font-semibold text-teal-400"></p>
+          </div>
+
+          <div id="reveal-word-container" class="mb-6">
+            <p class="text-white/60 text-xs sm:text-sm mb-1">Tu palabra</p>
+            <p id="reveal-word" class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"></p>
+          </div>
+
+          <div id="reveal-impostor-hint" class="hidden mb-6 p-3 sm:p-4 bg-rose-500/10 rounded-xl border border-rose-500/20">
+            <p class="text-rose-300 text-xs sm:text-sm">
+              No conoces la palabra exacta. Escucha a los demas y trata de adivinar sin delatarte.
+            </p>
+          </div>
+
+          <button id="reveal-next-btn" class="btn btn-secondary w-full text-sm sm:text-base">
+            Entendido, siguiente jugador
+          </button>
+        </div>
+      </div>
+
+      <!-- Discussion Phase -->
+      <div id="discussion-phase" class="hidden">
+        <div class="text-center mb-4 sm:mb-6">
+          <p id="round-badge-discussion" class="inline-block px-3 py-1 bg-teal-500/20 border border-teal-500/30 rounded-full text-teal-400 text-xs sm:text-sm font-semibold mb-3"></p>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+            </svg>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold mb-2">Hora de discutir</h2>
+          <p class="text-white/60 text-sm sm:text-base">Cada jugador dice una palabra relacionada</p>
+        </div>
+
+        <div class="card mb-4">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-white/60 text-sm">Categoria:</span>
+            <span id="discussion-category" class="font-semibold text-teal-400"></span>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <h3 class="font-semibold mb-3 text-sm sm:text-base">Jugadores:</h3>
+            <div id="discussion-players" class="grid grid-cols-2 gap-2">
+              <!-- Players list -->
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-amber-500/10 border-amber-500/20 mb-4 sm:mb-6">
+          <h4 class="font-semibold text-amber-400 mb-2 flex items-center gap-2 text-sm sm:text-base">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Consejo
+          </h4>
+          <p class="text-white/60 text-xs sm:text-sm">
+            Digan palabras relacionadas. No sean muy obvios o el impostor adivinara. No sean muy vagos o pareceran sospechosos.
+          </p>
+        </div>
+
+        <button id="start-voting-btn" class="btn btn-danger w-full text-sm sm:text-base">
+          Elegir a quien expulsar
+        </button>
+      </div>
+
+      <!-- Voting Phase (Host selects) -->
+      <div id="voting-phase" class="hidden">
+        <div class="text-center mb-4 sm:mb-6">
+          <p id="round-badge-voting" class="inline-block px-3 py-1 bg-teal-500/20 border border-teal-500/30 rounded-full text-teal-400 text-xs sm:text-sm font-semibold mb-3"></p>
+          <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 bg-gradient-to-br from-rose-500 to-red-500 rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold mb-2">Expulsar jugador</h2>
+          <p class="text-white/60 text-sm sm:text-base">Selecciona a quien el grupo decidio expulsar</p>
+        </div>
+
+        <div class="card">
+          <p class="text-white/60 text-xs sm:text-sm text-center mb-4">Toca al jugador que sera expulsado:</p>
+
+          <div id="voting-options" class="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+            <!-- Voting options -->
+          </div>
+
+          <button id="confirm-eject-btn" class="btn btn-danger w-full text-sm sm:text-base" disabled>
+            Confirmar Expulsion
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Phase -->
+      <div id="results-phase" class="hidden">
+        <div id="results-content" class="text-center">
+          <!-- Results will be populated dynamically -->
+        </div>
+
+        <div class="flex flex-col gap-3 mt-6">
+          <button id="next-round-btn" class="btn btn-primary w-full text-sm sm:text-base">
+            Siguiente Ronda
+          </button>
+          <a href="/" class="btn btn-secondary w-full text-center text-sm sm:text-base">
+            Terminar Juego
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import {
+    loadGameState,
+    saveGameState,
+    markPlayerSeen,
+    startVoting,
+    ejectPlayer,
+    startNewRound,
+    didImpostorWin,
+    type GameState
+  } from '../lib/gameState';
+
+  const noGameEl = document.getElementById('no-game') as HTMLDivElement;
+  const revealPhaseEl = document.getElementById('reveal-phase') as HTMLDivElement;
+  const discussionPhaseEl = document.getElementById('discussion-phase') as HTMLDivElement;
+  const votingPhaseEl = document.getElementById('voting-phase') as HTMLDivElement;
+  const resultsPhaseEl = document.getElementById('results-phase') as HTMLDivElement;
+
+  const roundBadgeReveal = document.getElementById('round-badge-reveal') as HTMLParagraphElement;
+  const roundBadgeDiscussion = document.getElementById('round-badge-discussion') as HTMLParagraphElement;
+  const roundBadgeVoting = document.getElementById('round-badge-voting') as HTMLParagraphElement;
+
+  const revealWaitingEl = document.getElementById('reveal-waiting') as HTMLDivElement;
+  const revealShowingEl = document.getElementById('reveal-showing') as HTMLDivElement;
+  const revealPlayerInitialEl = document.getElementById('reveal-player-initial') as HTMLSpanElement;
+  const revealPlayerNameEl = document.getElementById('reveal-player-name') as HTMLSpanElement;
+  const revealShowBtn = document.getElementById('reveal-show-btn') as HTMLButtonElement;
+  const revealImpostorBadgeEl = document.getElementById('reveal-impostor-badge') as HTMLDivElement;
+  const revealPlayerBadgeEl = document.getElementById('reveal-player-badge') as HTMLDivElement;
+  const revealCategoryEl = document.getElementById('reveal-category') as HTMLParagraphElement;
+  const revealWordEl = document.getElementById('reveal-word') as HTMLParagraphElement;
+  const revealWordContainerEl = document.getElementById('reveal-word-container') as HTMLDivElement;
+  const revealImpostorHintEl = document.getElementById('reveal-impostor-hint') as HTMLDivElement;
+  const revealNextBtn = document.getElementById('reveal-next-btn') as HTMLButtonElement;
+
+  const discussionCategoryEl = document.getElementById('discussion-category') as HTMLSpanElement;
+  const discussionPlayersEl = document.getElementById('discussion-players') as HTMLDivElement;
+  const startVotingBtn = document.getElementById('start-voting-btn') as HTMLButtonElement;
+
+  const votingOptionsEl = document.getElementById('voting-options') as HTMLDivElement;
+  const confirmEjectBtn = document.getElementById('confirm-eject-btn') as HTMLButtonElement;
+
+  const resultsContentEl = document.getElementById('results-content') as HTMLDivElement;
+  const nextRoundBtn = document.getElementById('next-round-btn') as HTMLButtonElement;
+
+  let gameState: GameState | null = null;
+  let selectedEject: string | null = null;
+
+  function updateRoundBadges() {
+    if (!gameState) return;
+    const text = `Ronda ${gameState.round}`;
+    roundBadgeReveal.textContent = text;
+    roundBadgeDiscussion.textContent = text;
+    roundBadgeVoting.textContent = text;
+  }
+
+  function hideAllPhases() {
+    noGameEl.classList.add('hidden');
+    revealPhaseEl.classList.add('hidden');
+    discussionPhaseEl.classList.add('hidden');
+    votingPhaseEl.classList.add('hidden');
+    resultsPhaseEl.classList.add('hidden');
+  }
+
+  function showPhase(phase: string) {
+    hideAllPhases();
+    switch (phase) {
+      case 'reveal':
+        revealPhaseEl.classList.remove('hidden');
+        break;
+      case 'discussion':
+        discussionPhaseEl.classList.remove('hidden');
+        break;
+      case 'voting':
+        votingPhaseEl.classList.remove('hidden');
+        break;
+      case 'results':
+        resultsPhaseEl.classList.remove('hidden');
+        break;
+      default:
+        noGameEl.classList.remove('hidden');
+    }
+  }
+
+  function renderRevealPhase() {
+    if (!gameState) return;
+    updateRoundBadges();
+
+    const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+    if (!currentPlayer) {
+      gameState.phase = 'discussion';
+      saveGameState(gameState);
+      renderDiscussionPhase();
+      showPhase('discussion');
+      return;
+    }
+
+    revealWaitingEl.classList.remove('hidden');
+    revealShowingEl.classList.add('hidden');
+
+    revealPlayerInitialEl.textContent = currentPlayer.name.charAt(0).toUpperCase();
+    revealPlayerNameEl.textContent = currentPlayer.name;
+  }
+
+  function showWord() {
+    if (!gameState) return;
+
+    const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+    if (!currentPlayer) return;
+
+    revealWaitingEl.classList.add('hidden');
+    revealShowingEl.classList.remove('hidden');
+
+    revealCategoryEl.textContent = gameState.category;
+
+    if (currentPlayer.isImpostor) {
+      revealImpostorBadgeEl.classList.remove('hidden');
+      revealPlayerBadgeEl.classList.add('hidden');
+      revealWordContainerEl.classList.add('hidden');
+      revealImpostorHintEl.classList.remove('hidden');
+    } else {
+      revealImpostorBadgeEl.classList.add('hidden');
+      revealPlayerBadgeEl.classList.remove('hidden');
+      revealWordContainerEl.classList.remove('hidden');
+      revealImpostorHintEl.classList.add('hidden');
+      revealWordEl.textContent = gameState.word;
+    }
+  }
+
+  function nextPlayer() {
+    if (!gameState) return;
+
+    const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+    if (currentPlayer) {
+      gameState = markPlayerSeen(currentPlayer.id);
+    }
+
+    if (!gameState) return;
+
+    if (gameState.phase === 'discussion') {
+      renderDiscussionPhase();
+      showPhase('discussion');
+    } else {
+      renderRevealPhase();
+    }
+  }
+
+  function renderDiscussionPhase() {
+    if (!gameState) return;
+    updateRoundBadges();
+
+    discussionCategoryEl.textContent = gameState.category;
+
+    discussionPlayersEl.innerHTML = gameState.players.map((player, index) => `
+      <div class="flex items-center gap-2 p-2 sm:p-3 bg-white/5 rounded-xl">
+        <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
+          ${index + 1}
+        </div>
+        <span class="font-medium text-xs sm:text-sm truncate">${player.name}</span>
+      </div>
+    `).join('');
+  }
+
+  function renderVotingPhase() {
+    if (!gameState) return;
+    updateRoundBadges();
+
+    selectedEject = null;
+    confirmEjectBtn.disabled = true;
+
+    votingOptionsEl.innerHTML = gameState.players.map(player => `
+      <button
+        class="voting-option w-full p-3 sm:p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-teal-400/50 rounded-xl text-left transition-all flex items-center gap-3"
+        data-player-id="${player.id}"
+      >
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center font-semibold text-sm sm:text-base shrink-0">
+          ${player.name.charAt(0).toUpperCase()}
+        </div>
+        <span class="font-medium text-sm sm:text-base truncate">${player.name}</span>
+      </button>
+    `).join('');
+
+    votingOptionsEl.querySelectorAll('.voting-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        votingOptionsEl.querySelectorAll('.voting-option').forEach(b => {
+          b.classList.remove('border-rose-400', 'bg-rose-500/20');
+          b.classList.add('border-white/10');
+        });
+
+        btn.classList.remove('border-white/10');
+        btn.classList.add('border-rose-400', 'bg-rose-500/20');
+
+        selectedEject = (btn as HTMLElement).dataset.playerId || null;
+        confirmEjectBtn.disabled = false;
+      });
+    });
+  }
+
+  function confirmEjection() {
+    if (!gameState || !selectedEject) return;
+
+    gameState = ejectPlayer(selectedEject);
+
+    if (!gameState) return;
+
+    showPhase('results');
+    renderResultsPhase();
+  }
+
+  function renderResultsPhase() {
+    if (!gameState) return;
+
+    const impostorWon = didImpostorWin(gameState);
+    const impostor = gameState.players.find(p => p.isImpostor);
+    const ejectedPlayer = gameState.players.find(p => p.id === gameState!.ejectedPlayerId);
+
+    let resultHTML = '';
+
+    // Round result header
+    resultHTML += `<p class="inline-block px-3 py-1 bg-white/10 rounded-full text-white/60 text-xs sm:text-sm font-semibold mb-4">Ronda ${gameState.round}</p>`;
+
+    if (impostorWon) {
+      resultHTML += `
+        <div class="mb-6">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 bg-gradient-to-br from-rose-500 to-red-500 rounded-full flex items-center justify-center shadow-2xl shadow-rose-500/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-rose-400 mb-2">Gano el Impostor</h2>
+          <p class="text-white/60 text-sm sm:text-base">El impostor no fue descubierto</p>
+        </div>
+      `;
+    } else {
+      resultHTML += `
+        <div class="mb-6">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full flex items-center justify-center shadow-2xl shadow-emerald-500/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-emerald-400 mb-2">Ganaron los Jugadores</h2>
+          <p class="text-white/60 text-sm sm:text-base">El impostor fue descubierto</p>
+        </div>
+      `;
+    }
+
+    // Show ejected player and impostor in same box
+    if (ejectedPlayer) {
+      resultHTML += `
+        <div class="card mb-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="text-center">
+              <p class="text-white/60 text-xs sm:text-sm mb-2">Expulsado</p>
+              <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-2 rounded-full ${ejectedPlayer.isImpostor ? 'bg-gradient-to-br from-rose-500 to-red-500' : 'bg-gradient-to-br from-teal-500 to-cyan-500'} flex items-center justify-center text-lg sm:text-xl font-bold">
+                ${ejectedPlayer.name.charAt(0).toUpperCase()}
+              </div>
+              <p class="font-semibold text-sm sm:text-base">${ejectedPlayer.name}</p>
+              <p class="text-xs ${ejectedPlayer.isImpostor ? 'text-rose-400' : 'text-emerald-400'}">
+                ${ejectedPlayer.isImpostor ? 'Impostor' : 'Inocente'}
+              </p>
+            </div>
+            <div class="text-center">
+              <p class="text-white/60 text-xs sm:text-sm mb-2">Impostor real</p>
+              <div class="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-2 rounded-full bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-lg sm:text-xl font-bold">
+                ${impostor?.name.charAt(0).toUpperCase()}
+              </div>
+              <p class="font-semibold text-sm sm:text-base">${impostor?.name}</p>
+              <p class="text-xs text-rose-400">Impostor</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Show the word
+    resultHTML += `
+      <div class="card mb-4 text-left">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-white/60 text-xs sm:text-sm">Categoria</p>
+            <p class="font-semibold text-teal-400 text-sm sm:text-base">${gameState.category}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-white/60 text-xs sm:text-sm">Palabra</p>
+            <p class="font-semibold text-lg sm:text-xl">${gameState.word}</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Leaderboard
+    const sortedScores = [...gameState.playerScores].sort((a, b) => b.wins - a.wins);
+
+    resultHTML += `
+      <div class="card text-left">
+        <h3 class="font-semibold mb-3 text-sm sm:text-base flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
+          Puntuacion
+        </h3>
+        <div class="space-y-2">
+          ${sortedScores.map((score, index) => `
+            <div class="flex items-center justify-between p-2 sm:p-3 rounded-xl ${index === 0 && score.wins > 0 ? 'bg-amber-500/10 border border-amber-500/20' : 'bg-white/5'}">
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full ${index === 0 && score.wins > 0 ? 'bg-gradient-to-br from-amber-500 to-orange-500' : 'bg-gradient-to-br from-teal-500 to-cyan-500'} flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
+                  ${index + 1}
+                </div>
+                <span class="font-medium text-xs sm:text-sm truncate">${score.name}</span>
+              </div>
+              <div class="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                <span class="text-emerald-400 font-semibold">${score.wins} <span class="text-white/40 font-normal hidden sm:inline">victorias</span></span>
+                ${score.impostorWins > 0 ? `<span class="text-rose-400/60">(${score.impostorWins} imp)</span>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    resultsContentEl.innerHTML = resultHTML;
+  }
+
+  function handleNextRound() {
+    if (!gameState) return;
+    gameState = startNewRound(gameState);
+    showPhase('reveal');
+    renderRevealPhase();
+  }
+
+  function init() {
+    gameState = loadGameState();
+
+    if (!gameState) {
+      showPhase('');
+      return;
+    }
+
+    switch (gameState.phase) {
+      case 'reveal':
+        showPhase('reveal');
+        renderRevealPhase();
+        break;
+      case 'discussion':
+        showPhase('discussion');
+        renderDiscussionPhase();
+        break;
+      case 'voting':
+        showPhase('voting');
+        renderVotingPhase();
+        break;
+      case 'results':
+        showPhase('results');
+        renderResultsPhase();
+        break;
+      default:
+        showPhase('');
+    }
+  }
+
+  revealShowBtn.addEventListener('click', showWord);
+  revealNextBtn.addEventListener('click', nextPlayer);
+  startVotingBtn.addEventListener('click', () => {
+    gameState = startVoting();
+    if (gameState) {
+      showPhase('voting');
+      renderVotingPhase();
+    }
+  });
+  confirmEjectBtn.addEventListener('click', confirmEjection);
+  nextRoundBtn.addEventListener('click', handleNextRound);
+
+  init();
+</script>
