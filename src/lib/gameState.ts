@@ -29,21 +29,33 @@ export interface GameState {
 
 const GAME_STATE_KEY = 'impostor_game_state';
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export function createGame(playerNames: string[], selectedCategories: string[] = []): GameState {
   const category = getRandomCategory(selectedCategories);
   const word = getRandomWord(category);
   const impostorIndex = Math.floor(Math.random() * playerNames.length);
 
-  const players: Player[] = playerNames.map((name, index) => ({
+  const playersUnshuffled: Player[] = playerNames.map((name, index) => ({
     id: crypto.randomUUID(),
     name,
     isImpostor: index === impostorIndex,
     hasSeenWord: false,
   }));
 
+  // Shuffle players for random turn order
+  const players = shuffleArray(playersUnshuffled);
+
   const playerScores: PlayerScore[] = playerNames.map((name, index) => ({
     name,
-    odj: players[index].id,
+    odj: playersUnshuffled[index].id,
     wins: 0,
     impostorWins: 0,
   }));
@@ -53,7 +65,7 @@ export function createGame(playerNames: string[], selectedCategories: string[] =
     playerScores,
     category: category.category,
     word,
-    impostorId: players[impostorIndex].id,
+    impostorId: playersUnshuffled[impostorIndex].id,
     currentPlayerIndex: 0,
     phase: 'reveal',
     ejectedPlayerId: null,
@@ -66,27 +78,38 @@ export function createGame(playerNames: string[], selectedCategories: string[] =
 }
 
 export function startNewRound(state: GameState): GameState {
+  return createNewRound(state, true);
+}
+
+export function skipRound(state: GameState): GameState {
+  return createNewRound(state, false);
+}
+
+function createNewRound(state: GameState, incrementRound: boolean): GameState {
   const category = getRandomCategory(state.selectedCategories);
   const word = getRandomWord(category);
   const impostorIndex = Math.floor(Math.random() * state.playerScores.length);
 
-  const players: Player[] = state.playerScores.map((score, index) => ({
+  const playersUnshuffled: Player[] = state.playerScores.map((score, index) => ({
     id: score.odj,
     name: score.name,
     isImpostor: index === impostorIndex,
     hasSeenWord: false,
   }));
 
+  // Shuffle players for random turn order
+  const players = shuffleArray(playersUnshuffled);
+
   const newState: GameState = {
     ...state,
     players,
     category: category.category,
     word,
-    impostorId: players[impostorIndex].id,
+    impostorId: playersUnshuffled[impostorIndex].id,
     currentPlayerIndex: 0,
     phase: 'reveal',
     ejectedPlayerId: null,
-    round: state.round + 1,
+    round: incrementRound ? state.round + 1 : state.round,
   };
 
   saveGameState(newState);

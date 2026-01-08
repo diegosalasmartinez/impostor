@@ -62,7 +62,7 @@ const categories = getCategoryNames();
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
             </svg>
-            Categorias
+            Categorías
           </h2>
           <button id="toggle-categories" class="text-white/60 hover:text-white transition-colors p-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform" id="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,7 +72,7 @@ const categories = getCategoryNames();
         </div>
 
         <p class="text-white/60 text-xs sm:text-sm mb-3" id="categories-hint">
-          <span id="selected-count">{categories.length}</span> de {categories.length} categorias seleccionadas
+          <span id="selected-count">{categories.length}</span> de {categories.length} categorías seleccionadas
         </p>
 
         <div id="categories-container" class="hidden">
@@ -106,13 +106,13 @@ const categories = getCategoryNames();
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-5 sm:h-5 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Como jugar
+          Cómo jugar
         </h3>
         <ol class="text-white/60 text-xs sm:text-sm space-y-1.5 sm:space-y-2 list-decimal list-inside">
           <li>Todos reciben la misma palabra, excepto <strong class="text-teal-400">el impostor</strong></li>
-          <li>El impostor solo conoce la categoria</li>
+          <li>El impostor solo conoce la categoría</li>
           <li>Por turnos, cada jugador dice una palabra relacionada</li>
-          <li>Discutan y decidan a quien expulsar</li>
+          <li>Discutan y decidan a quién expulsar</li>
           <li>Si expulsan al impostor, <strong class="text-emerald-400">ganan los jugadores</strong></li>
           <li>Si expulsan a otro, <strong class="text-rose-400">gana el impostor</strong></li>
         </ol>
@@ -200,7 +200,7 @@ const categories = getCategoryNames();
     }
 
     if (players.length >= 10) {
-      showError('Maximo 10 jugadores');
+      showError('Máximo 10 jugadores');
       return;
     }
 
@@ -251,7 +251,7 @@ const categories = getCategoryNames();
 
     const selectedCategories = getSelectedCategories();
     if (selectedCategories.length === 0) {
-      showError('Selecciona al menos una categoria');
+      showError('Selecciona al menos una categoría');
       return;
     }
 

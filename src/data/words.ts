@@ -51,11 +51,11 @@ export const wordCategories: WordCategory[] = [
     {
         category: "Animales",
         words: [
-            "Perro", "Gato", "Leon", "Elefante", "Pajaro", "Pez", "Serpiente",
-            "Tigre", "Oso", "Lobo", "Zorro", "Mono", "Gorila", "Chimpance", "Jirafa", "Cebra",
-            "Rinoceronte", "Hipopotamo", "Camello", "Caballo", "Burro", "Vaca", "Toro", "Cerdo",
-            "Oveja", "Cabra", "Gallina", "Gallo", "Pato", "Aguila", "Buho", "Loro",
-            "Delfin", "Ballena", "Tiburon", "Pulpo", "Medusa", "Cangrejo", "Langosta", "Tortuga",
+            "Perro", "Gato", "León", "Elefante", "Pájaro", "Pez", "Serpiente",
+            "Tigre", "Oso", "Lobo", "Zorro", "Mono", "Gorila", "Chimpancé", "Jirafa", "Cebra",
+            "Rinoceronte", "Hipopótamo", "Camello", "Caballo", "Burro", "Vaca", "Toro", "Cerdo",
+            "Oveja", "Cabra", "Gallina", "Gallo", "Pato", "Águila", "Búho", "Loro",
+            "Delfín", "Ballena", "Tiburón", "Pulpo", "Medusa", "Cangrejo", "Langosta", "Tortuga",
             "Cocodrilo", "Lagarto", "Iguana", "Rana", "Sapo", "Mariposa", "Abeja", "Hormiga"
         ]
     },
@@ -73,10 +73,10 @@ export const wordCategories: WordCategory[] = [
     {
         category: "Sentimientos y emociones",
         words: [
-            "Alegria", "Tristeza", "Miedo", "Sorpresa", "Amor", "Enojo",
-            "Felicidad", "Nervios", "Verguenza", "Orgullo", "Celos", "Culpa",
-            "Ansiedad", "Calma", "Confianza", "Esperanza", "Frustracion", "Aburrimiento",
-            "Ternura", "Satisfaccion", "Soledad", "Euforia", "Panico", "Ilusion"
+            "Alegría", "Tristeza", "Miedo", "Sorpresa", "Amor", "Enojo",
+            "Felicidad", "Nervios", "Vergüenza", "Orgullo", "Celos", "Culpa",
+            "Ansiedad", "Calma", "Confianza", "Esperanza", "Frustración", "Aburrimiento",
+            "Ternura", "Satisfacción", "Soledad", "Euforia", "Pánico", "Ilusión"
         ]
     },
     {
@@ -92,11 +92,11 @@ export const wordCategories: WordCategory[] = [
         ]
     },
     {
-        category: "Peliculas",
+        category: "Películas",
         words: [
             "Titanic", "Avatar", "Matrix", "Jurassic Park", "Harry Potter", "El Padrino", "Toy Story", "Star Wars",
             "Gladiador", "Rocky", "Inception", "Interstellar", "Batman", "Spiderman", "Avengers", "Iron Man",
-            "Thor", "Capitan America", "Joker", "Deadpool", "Shrek", "Madagascar", "Kung Fu Panda",
+            "Thor", "Capitán América", "Joker", "Deadpool", "Shrek", "Madagascar", "Kung Fu Panda",
             "Frozen", "Coco", "Up", "Wall E", "Cars", "Buscando a Nemo", "Ratatouille",
             "Piratas del Caribe", "El Hobbit", "El Señor de los Anillos", "Transformers", "Terminator",
             "Alien", "Depredador", "Rambo", "Volver al Futuro", "Indiana Jones", "Matrix Reloaded"
@@ -126,14 +126,14 @@ export const wordCategories: WordCategory[] = [
         ]
     },
     {
-        category: "Paises",
+        category: "Países",
         words: [
-            "Peru", "Mexico", "Argentina", "Brasil", "Chile", "Colombia", "Ecuador", "Bolivia",
-            "Estados Unidos", "Canada", "España", "Francia", "Italia", "Alemania", "Portugal",
-            "Inglaterra", "Irlanda", "Escocia", "Japon", "China", "Corea del Sur", "India",
-            "Australia", "Nueva Zelanda", "Rusia", "Ucrania", "Egipto", "Marruecos", "Sudafrica",
-            "Nigeria", "Kenya", "Turquia", "Grecia", "Suecia", "Noruega", "Finlandia", "Dinamarca",
-            "Holanda", "Belgica", "Suiza", "Austria", "Polonia", "Republica Checa", "Hungria"
+            "Perú", "México", "Argentina", "Brasil", "Chile", "Colombia", "Ecuador", "Bolivia",
+            "Estados Unidos", "Canadá", "España", "Francia", "Italia", "Alemania", "Portugal",
+            "Inglaterra", "Irlanda", "Escocia", "Japón", "China", "Corea del Sur", "India",
+            "Australia", "Nueva Zelanda", "Rusia", "Ucrania", "Egipto", "Marruecos", "Sudáfrica",
+            "Nigeria", "Kenya", "Turquía", "Grecia", "Suecia", "Noruega", "Finlandia", "Dinamarca",
+            "Holanda", "Bélgica", "Suiza", "Austria", "Polonia", "República Checa", "Hungría"
         ]
     },
     {
@@ -151,14 +151,14 @@ export const wordCategories: WordCategory[] = [
         category: "Historia",
         words: [
             "Dinosaurios", "Egipto antiguo", "Imperio romano", "Imperio griego", "Edad media",
-            "Renacimiento", "Revolucion francesa", "Revolucion industrial",
-            "Primera guerra mundial", "Segunda guerra mundial", "Guerra fria",
-            "Descubrimiento de America", "Colonizacion", "Independencia",
-            "Imperio inca", "Civilizacion maya", "Civilizacion azteca",
+            "Renacimiento", "Revolución francesa", "Revolución industrial",
+            "Primera guerra mundial", "Segunda guerra mundial", "Guerra fría",
+            "Descubrimiento de América", "Colonización", "Independencia",
+            "Imperio inca", "Civilización maya", "Civilización azteca",
             "Piratas", "Vikingos", "Caballeros", "Castillos", "Faraones",
             "Gladiadores", "Samurais", "Conquistadores", "Exploradores",
             "Reyes", "Reinas", "Emperadores", "Presidentes", "Dictaduras",
-            "Democracia", "Monarquia", "Feudalismo", "Esclavitud", "Abolicion",
+            "Democracia", "Monarquía", "Feudalismo", "Esclavitud", "Abolición",
             "Imperios", "Batallas", "Tratados", "Revoluciones"
         ]
     }
