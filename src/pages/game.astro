@@ -71,6 +71,9 @@ import Layout from '../layouts/Layout.astro';
           <button id="reveal-next-btn" class="btn btn-secondary w-full text-sm sm:text-base">
             Entendido, siguiente jugador
           </button>
+          <button id="reveal-skip-btn" class="btn w-full text-sm sm:text-base mt-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white">
+            Saltar palabra (muy difícil)
+          </button>
         </div>
       </div>
 
@@ -202,6 +205,7 @@ import Layout from '../layouts/Layout.astro';
   const revealWordContainerEl = document.getElementById('reveal-word-container') as HTMLDivElement;
   const revealImpostorHintEl = document.getElementById('reveal-impostor-hint') as HTMLDivElement;
   const revealNextBtn = document.getElementById('reveal-next-btn') as HTMLButtonElement;
+  const revealSkipBtn = document.getElementById('reveal-skip-btn') as HTMLButtonElement;
 
   const discussionCategoryEl = document.getElementById('discussion-category') as HTMLSpanElement;
   const discussionPlayersEl = document.getElementById('discussion-players') as HTMLDivElement;
@@ -532,6 +536,12 @@ import Layout from '../layouts/Layout.astro';
 
   revealShowBtn.addEventListener('click', showWord);
   revealNextBtn.addEventListener('click', nextPlayer);
+  revealSkipBtn.addEventListener('click', () => {
+    if (!gameState) return;
+    gameState = skipRound(gameState);
+    showPhase('reveal');
+    renderRevealPhase();
+  });
   startVotingBtn.addEventListener('click', () => {
     gameState = startVoting();
     if (gameState) {
