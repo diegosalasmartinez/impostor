@@ -1,0 +1,35 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="50%" style="stop-color:#1e293b"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6"/>
+      <stop offset="100%" style="stop-color:#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="200" fill="#14b8a6" fill-opacity="0.05"/>
+  <circle cx="1100" cy="530" r="250" fill="#06b6d4" fill-opacity="0.05"/>
+
+  <!-- Main icon circle -->
+  <circle cx="600" cy="240" r="90" fill="url(#teal)"/>
+
+  <!-- Question mark icon -->
+  <text x="600" y="270" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="white" text-anchor="middle">?</text>
+
+  <!-- Title -->
+  <text x="600" y="400" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">IMPOSTOR</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="470" font-family="Arial, sans-serif" font-size="28" fill="#94a3b8" text-anchor="middle">Encuentra al impostor entre tus amigos</text>
+
+  <!-- Players indicator -->
+  <text x="600" y="530" font-family="Arial, sans-serif" font-size="22" fill="#14b8a6" text-anchor="middle">3-10 jugadores • Juego de deducción social</text>
+</svg>
